@@ -12,16 +12,14 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
   const [password, setPassword] = useState(null);
   const [confirmPassword, setConfirmPassword] = useState(null);
   const [error, setError] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(null);
+  const [_, setCookie] = useCookies(null);
 
   const [sendOTP, setSendOTP] = useState(true);
-  const [otpGenerated, setOtpGenerated] = useState(false);
   const [otpValue, setOTPValue] = useState("");
   const [otpLoader, setOtpLoader] = useState(false);
   const [verifyOTPLoader, setVerifyOTPLoader] = useState(false);
   const validEmailDomain = /@nitk\.edu\.in$/;
   let navigate = useNavigate();
-
   const handleClick = () => {
     setShowModal(false);
   };
@@ -58,7 +56,8 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
     setOtpLoader(true);
 
     try {
-      const response = await axios.post(`http://localhost:8000/signup`, {
+      const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+      const response = await axios.post(`${SERVER_URL}/signup`, {
         email,
         password,
       });
@@ -84,7 +83,8 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
     setVerifyOTPLoader(true);
 
     try {
-      const verifyOTP = await axios.post(`http://localhost:8000/verifyUser`, {
+      const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+      const verifyOTP = await axios.post(`${SERVER_URL}/verifyUser`, {
         email,
         otpValue,
       });
@@ -130,12 +130,8 @@ const AuthModal = ({ setShowModal, isSignUp }) => {
         return;
       }
 
-      //   const response = await axios.post(
-      //     `http://localhost:8000/verifyUser`, {email, password}
-      //   );
-
       const response = await axios.post(
-        `http://localhost:8000/${isSignUp ? "signup" : "login"}`,
+        `${process.env.REACT_APP_SERVER_URL}/${isSignUp ? "signup" : "login"}`,
         { email, password }
       );
 

@@ -48,7 +48,7 @@ export default function SwipeCard({
               />
             ) : (
               <>
-                <img src={displayPic} alt="jenna" preload />
+                <img src={displayPic} alt="jenna" />
                 <div className="gradient"></div>
                 <h2>{name}</h2>
               </>

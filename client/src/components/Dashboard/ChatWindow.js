@@ -14,7 +14,7 @@ import "./style/swipeCard.css";
 import "./style/chatBox.css";
 import { ENTER_KEYCODE } from "../../constants/constants";
 
-const socket = io.connect("http://localhost:8000");
+const socket = io.connect(`${process.env.REACT_APP_SERVER_URL}`);
 
 function ChatBox() {
   const { messagesArray } = useContext(ChatContext);

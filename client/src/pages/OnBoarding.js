@@ -31,7 +31,7 @@ const OnBoarding = () => {
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://localhost:8000/user",
+      url: `${process.env.REACT_APP_SERVER_URL}/user`,
       params: { userId: cookies.UserId },
     })
       .then((response) => {
@@ -69,7 +69,7 @@ const OnBoarding = () => {
       formdata.append(key, formData[key]);
     }
     try {
-      const response = await axios.post("http://localhost:8000/user", formdata);
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/user`, formdata);
       setLoader(false);
       const success = response.status === 200;
       if (success) navigate("/dashboard");

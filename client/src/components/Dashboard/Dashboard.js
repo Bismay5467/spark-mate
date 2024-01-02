@@ -81,9 +81,13 @@ export default function DashboardComponent() {
       (response) => response.data
     );
 
-  const { data: likeData } = useSWR("http://localhost:8000/likes", fetcher, {
-    refreshInterval: 1000,
-  });
+  const { data: likeData } = useSWR(
+    `${process.env.REACT_APP_SERVER_URL}/likes`,
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
+  );
 
   useEffect(() => {
     if (!likeData) return;
@@ -94,9 +98,13 @@ export default function DashboardComponent() {
     setDisplayLikes(() => ({ data: revalidatedData, loading: false }));
   }, [likeData?.length]);
 
-  const { data: matchData } = useSWR("http://localhost:8000/matches", fetcher, {
-    refreshInterval: 1000,
-  });
+  const { data: matchData } = useSWR(
+    `${process.env.REACT_APP_SERVER_URL}/matches`,
+    fetcher,
+    {
+      refreshInterval: 1000,
+    }
+  );
 
   useEffect(() => {
     if (!matchData || matchData.length === 0) return;
